@@ -27,7 +27,7 @@ app.get('/', function(req, res){
 
 // Require routes
 require('./routes/users')(app);
-require('./routes/notes')(app);
+// require('./routes/notes')(app);
 
 app.listen(port, () => {
     console.log('We are live on ' + port);

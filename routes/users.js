@@ -2,7 +2,6 @@ const User = require('../models/users');
 const users = require('../controllers/users');
 
 module.exports = (app) => {
-
     app.post('/users', users.create);
 
     app.get('/users', users.findAll);
