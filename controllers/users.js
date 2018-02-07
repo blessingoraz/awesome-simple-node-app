@@ -8,8 +8,7 @@ exports.create = (req, res) => {
     let user = new User({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
-        // create_at: Date
+        password: req.body.password
     });
     user.save(function (err, user) {
         if (err) res.status(500).send({ message: "An error occurred while creating the user." });
@@ -26,7 +25,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    User.findById(req.params.userId, (err, user) => {
+    User.findById(req.params.userId).populate('notes').exec((err, user) => {
         if (err) res.status(500).send({ message: `Can not retrieve user with id ${req.params.userId}` });
         res.send(user);
     });

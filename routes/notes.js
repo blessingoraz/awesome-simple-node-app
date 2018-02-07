@@ -3,13 +3,15 @@ const notes = require('../controllers/notes');
 
 module.exports = (app) => {
 
-    app.post('/notes', notes.create);
+    app.post('/users/:userId/notes', notes.create);
 
     app.get('/notes', notes.findAll);
 
+    app.get('/users/:userId/notes', notes.findAllByUser);
+
     app.get('/notes/:noteId', notes.findOne);
 
-    app.put('/notes/:noteId', notes.update);
+    app.put('/users/:userId/notes/:noteId', notes.update);
 
-    app.delete('/notes/:noteId', notes.delete);
+    app.delete('/users/:userId/notes/:noteId', notes.delete);
 };

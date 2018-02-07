@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const noteSchema = new Schema({
-    texts: {type: String},
+    _creator : { type: Schema.Types.ObjectId, ref: 'User' },
+    text: {type: String},
     category: {type: String, required: true}
 });
 
