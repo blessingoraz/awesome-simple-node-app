@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const session = require('express-session')
 const db = require('./config/db');
 
 const app = express();
@@ -8,6 +9,12 @@ const port = 4000;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+//use sessions for tracking logins
+app.use(session({
+  secret: 'work hard here',
+  resave: true,
+  saveUninitialized: false
+}));
 
 mongoose.connect(db.url);
 

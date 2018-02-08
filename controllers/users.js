@@ -1,7 +1,6 @@
 const User = require('../models/users');
 
 exports.create = (req, res) => {
-    console.log('here here here')
     if (!req.body.email) {
         res.status(400).send({ message: "Email can not be empty" });
     }
@@ -11,7 +10,7 @@ exports.create = (req, res) => {
         password: req.body.password
     });
     user.save(function (err, user) {
-        if (err) res.status(500).send({ message: "An error occurred while creating the user." });
+        if (err) res.status(500).send({ message: "An error occurred while creating the user.", err });
         res.status(201);
         res.send(user);
     });
@@ -21,6 +20,16 @@ exports.findAll = (req, res) => {
     User.find((err, users) => {
         if (err) res.status(500).send({ message: "An error occurred while trying to retrieve users" });
         res.send(users);
+    });
+};
+
+exports.login = (req, res) => {
+    User.findOne({email: req.body.email}, (err, user) => {
+        if (err) res.status(500).send({ message: "User can not be found" });;
+        user.comparePassword(req.body.password, function(err, isMatch) {
+            if (err) res.status(500).send({ message: "Incorrect password" });
+            res.send({message: 'Successfully logged in'});
+        });
     });
 };
 
