@@ -19,13 +19,14 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     User.find((err, users) => {
         if (err) res.status(500).send({ message: "An error occurred while trying to retrieve users" });
+        res.status(200)
         res.send(users);
     });
 };
 
 exports.login = (req, res) => {
     User.findOne({email: req.body.email}, (err, user) => {
-        if (err) res.status(500).send({ message: "User can not be found" });;
+        if (err) res.status(500).send({ message: "User can not be found" });
         user.comparePassword(req.body.password, function(err, isMatch) {
             if (err) res.status(500).send({ message: "Incorrect password" });
             res.send({message: 'Successfully logged in'});

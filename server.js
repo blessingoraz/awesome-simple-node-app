@@ -10,11 +10,11 @@ const port = 4000;
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 //use sessions for tracking logins
-app.use(session({
-  secret: 'work hard here',
-  resave: true,
-  saveUninitialized: false
-}));
+// app.use(session({
+//   secret: 'work hard here',
+//   resave: true,
+//   saveUninitialized: false
+// }));
 
 mongoose.connect(db.url);
 
@@ -28,7 +28,7 @@ dbConn.once('open', () => {
   console.log('DB connected successfully!');
 });
 
-app.get('/', function(req, res){
+app.get('/', (req, res) => {
   res.json({"message": "Welcome to the simple tutorial."});
 });
 
@@ -39,4 +39,6 @@ require('./routes/notes')(app);
 app.listen(port, () => {
     console.log('We are live on ' + port);
 });
+
+module.exports = app;
 

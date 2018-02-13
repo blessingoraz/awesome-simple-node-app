@@ -46,7 +46,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    User.where('_id').equals(req.params.userId).exec((err) => {
+    User.where('_creator').equals(req.params.userId).exec((err) => {
         if(err) res.status(500).send({ message: `User is not found` });
         Note.findById(req.params.noteId, (err, note) => {
             if (err) res.status(500).send({ message: `An error occurred` });
